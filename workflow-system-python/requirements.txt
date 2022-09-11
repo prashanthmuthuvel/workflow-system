@@ -1,0 +1,9 @@
+flask
+python-dotenv
+opencv-python
+matplotlib
+scikit-image
+numpy
+pytesseract
+poppler-utils
+pdf2image
