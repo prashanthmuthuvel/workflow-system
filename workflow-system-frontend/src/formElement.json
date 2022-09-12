@@ -1,0 +1,78 @@
+[
+    {
+        "page_label": "Graduate Request For Program Change",
+        "fields": [
+            {
+                "fieldId": "intent_to_graduate",
+                "fieldLabel": "Have you submitted a current Intent to Graduate?",
+                "fieldValue": "Yes",
+                "fieldMandatory": "yes",
+                "fieldOptions": [
+                    {
+                        "optionLabel": "Yes"
+                    },
+                    {
+                        "optionLabel": "No"
+                    }
+                ],
+                "fieldType": "select"
+            },
+            {
+                "fieldId": "last_name",
+                "fieldLabel": "Last Name",
+                "fieldMandatory": "yes",
+                "field_placeholder": "Enter student last name",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "first_name",
+                "fieldLabel": "First Name",
+                "fieldMandatory": "yes",
+                "field_placeholder": "Enter student first name",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "student_id",
+                "fieldLabel": "Student ID Number",
+                "fieldMandatory": "yes",
+                "field_placeholder": "Enter your student ID number",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "university_email",
+                "fieldLabel": "Lakehead University Email",
+                "fieldMandatory": "yes",
+                "field_placeholder": "Enter Lakehead University Email",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "degree",
+                "fieldLabel": "Degree",
+                "fieldMandatory": "yes",
+                "field_placeholder": "Example: Master of Arts",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "major",
+                "fieldLabel": "Major",
+                "fieldMandatory": "yes",
+                "field_placeholder": "Example: Biology, Physics",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "route_option",
+                "fieldLabel": "ROUTE/OPTION",
+                "fieldMandatory": "yes",
+                "field_placeholder": "Example: Thesis, Project, Course",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "specialization",
+                "fieldLabel": "Specialiation",
+                "fieldMandatory": "yes",
+                "field_placeholder": "Example: Gerontology, None",
+                "fieldType": "text"
+            }
+        ]
+    }
+]

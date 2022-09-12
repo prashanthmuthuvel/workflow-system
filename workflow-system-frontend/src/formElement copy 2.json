@@ -1,0 +1,257 @@
+{
+  "workflow" : {
+    "name" : "graduate course change workflow",
+    "forms" : [
+      {
+      "name": "Graduate Request For Program Change",
+        "fields": [
+            {
+                "fieldId": "intent_to_graduate",
+                "fieldLabel": "Have you submitted a current Intent to Graduate?",
+                "fieldMandatory": "yes",
+                "fieldOptions": [
+                    {
+                        "optionLabel": "Yes"
+                    },
+                    {
+                        "optionLabel": "No"
+                    }
+                ],
+                "fieldType": "select"
+            },
+            {
+                "fieldId": "last_name",
+                "fieldLabel": "Last Name",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter student last name",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "first_name",
+                "fieldLabel": "First Name",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter student first name",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "student_id",
+                "fieldLabel": "Student ID Number",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter your student ID number",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "university_email",
+                "fieldLabel": "Lakehead University Email",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter Lakehead University Email",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "degree",
+                "fieldLabel": "Degree",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Example: Master of Arts",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "major",
+                "fieldLabel": "Major",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Example: Biology, Physics",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "route_option",
+                "fieldLabel": "ROUTE/OPTION",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Example: Thesis, Project, Course",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "specialization",
+                "fieldLabel": "Specialiation",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Example: Gerontology, None",
+                "fieldType": "text"
+            }
+        ]
+      },
+      {
+        "name": "Financial Support Form for Continuing Students",
+        "fields": [
+           {
+                "fieldId": "name",
+                "fieldLabel": "Name",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter student name",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "program",
+                "fieldLabel": "Progran",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter student program",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "local_address",
+                "fieldLabel": "Local Address",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter student local address",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "student_number",
+                "fieldLabel": "Student Number",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter student number",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "phone",
+                "fieldLabel": "Phone",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter student phone number",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "email_address",
+                "fieldLabel": "Email Address",
+                "fieldMandatory": "yes",
+                "fieldPlaceholder": "Enter student email address",
+                "fieldType": "text"
+            },
+            {
+                "fieldId": "program_year",
+                "fieldLabel": "Program Year",
+                "fieldValue": "Yes",
+                "fieldMandatory": "yes",
+                "fieldOptions": [
+                    {
+                        "optionLabel": "1"
+                    },
+                    {
+                        "optionLabel": "2"
+                    },
+                    {
+                        "optionLabel": "3"
+                    },
+                    {
+                        "optionLabel": "4"
+                    }
+                ],
+                "fieldType": "select"
+            },
+            {
+                "fieldId": "student_type",
+                "fieldLabel": "Student Type",
+                "fieldValue": "Yes",
+                "fieldMandatory": "yes",
+                "fieldOptions": [
+                    {
+                        "optionLabel": "DOMESTIC"
+                    },
+                    {
+                        "optionLabel": "INTERNATIONAL"
+                    }
+                ],
+                "fieldType": "select"
+            }
+        ]
+      }
+    ],
+    "stages" : [
+      {
+        "name" : "stage1",
+        "user" : "student",
+        "formInfo" : [
+          {
+            "name" : "Graduate Request For Program Change",
+            "access" : "edit"
+          }],
+        "decision" : [
+          {
+            "name" : "submit",
+            "moveTo" : "stage2"
+          },
+          {
+            "name" : "decline",
+            "moveTo" : "done",
+            "status" : "declined"
+          }]
+      },
+      {
+        "name" : "stage2",
+        "user" : "professor",
+        "formInfo" : [
+          {
+            "name" : "Graduate Request For Program Change",
+            "access" : "view"
+          },
+          {
+            "name" : "Financial Support Form for Continuing Students",
+            "access" : "edit"
+          }],
+        "decision" : [
+          {
+            "name" : "submit",
+            "moveTo" : "stage3"
+          },
+          {
+            "name" : "back to student",
+            "moveTo" : "stage1"
+          },
+          {
+            "name" : "decline",
+            "moveTo" : "done",
+            "status" : "declined"
+          }]
+      },
+      {
+        "name" : "stage3",
+        "user" : "chair",
+        "formInfo" : [
+          {
+            "name" : "Graduate Request For Program Change",
+            "access" : "view"
+          },
+          {
+            "name" : "Financial Support Form for Continuing Students",
+            "access" : "view"
+          }],
+        "decision" : [
+          {
+            "name" : "submit",
+            "moveTo" : "done",
+            "status" : "Approved"
+          },
+          {
+            "name" : "back to student",
+            "moveTo" : "stage1"
+          },
+          {
+            "name" : "back to professor",
+            "moveTo" : "stage2"
+          },
+          {
+            "name" : "decline",
+            "moveTo" : "done",
+            "status" : "Declined"
+          }]
+      },
+      {
+        "name" : "done",
+        "formInfo" : [
+          {
+            "name" : "Graduate Request For Program Change",
+            "access" : "view"
+          },
+          {
+            "name" : "Financial Support Form for Continuing Students",
+            "access" : "view"
+          }],
+        "decision" : []
+      }]
+  }
+}
