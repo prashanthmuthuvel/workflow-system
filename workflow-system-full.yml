@@ -1,0 +1,92 @@
+version: "3"
+services:
+    elasticsearch:
+        image: elasticsearch:7.7.0
+        container_name: elasticsearch
+        hostname: elasticsearch
+        environment:
+            - "discovery.type=single-node"
+        ports:
+            - 9200:9200
+            - 9300:9300
+        networks:
+            - workflownetwork
+    kibana:
+        image: kibana:7.7.0
+        container_name: kibana
+        hostname: kibana
+        ports:
+            - 5601:5601
+        links:
+            - elasticsearch:elasticsearch
+        depends_on:
+          - elasticsearch
+        networks:
+          - workflownetwork
+    logstash:
+        image: logstash:7.7.0
+        container_name: logstash
+        hostname: logstash
+        ports:
+            - 9600:9600
+            - 8089:8089
+            - 5044:5044
+        volumes:
+          - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+        links:
+            - elasticsearch:elasticsearch
+        depends_on:
+          - elasticsearch
+        networks:
+          - workflownetwork
+    mysql-standalone:
+        image: mysql:5.6
+        container_name: mysql-standalone
+        hostname: mysql-standalone
+        ports:
+            - 3306:3306
+        environment:
+            - "MYSQL_ROOT_PASSWORD=password"
+            - "MYSQL_DATABASE=workflow_management_system"
+            - "MYSQL_USER=sa"
+            - "MYSQL_PASSWORD=password"
+        networks:
+          - workflownetwork
+    workflow-management-system:
+        image: workflow-management-system:latest
+        container_name: workflow-management-system
+        hostname: workflow-management-system
+        ports:
+            - 8080:8080
+            - 5005:5005
+        environment:
+            - "applicationName=workflow-management-system"
+            - "logstash-server=logstash"
+            - "logstash-port=5044"
+            - "DEBUG=true"
+        depends_on:
+          - mysql-standalone
+          - logstash
+        networks:
+          - workflownetwork
+    worklow-react-gui:
+        image: workflow-react-gui:latest
+        container_name: workflow-react-gui
+        hostname: workflow-react-gui
+        ports:
+            - 3000:80
+        depends_on:
+          - mysql-standalone
+        networks:
+          - workflownetwork
+    workflow-ai-python:
+        image: workflow-ai-python:latest
+        container_name: workflow-ai-python
+        hostname: workflow-ai-python
+        ports:
+            - 5000:5000
+        networks:
+          - workflownetwork
+networks:
+    workflownetwork:
+        driver: bridge
